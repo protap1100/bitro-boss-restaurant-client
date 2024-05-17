@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
 import SectionTitle from "../../../components/sectionTitle/SectionTitle";
-import MenuItem from "../../SharedPages/MenuItem/MenuItem";
+import useMenu from "../../../hooks/useMenu";
+import MenuCategory from "../../Menu/MenuCategory/MenuCategory";
 
 const PopularMenu = () => {
-  const [menu, setMenu] = useState([]);
-  const [loading, setLoading] = useState([true]);
-  useEffect(() => {
-    fetch("menu.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const popularData = data.filter((men) => men.category === "popular");
-        setMenu(popularData);
-        setLoading(false);
-      });
-  }, [menu]);
+  const [menu, loading] = useMenu();
+  const popular = menu.filter((item) => item.category === "popular");
 
   return (
     <section>
@@ -25,15 +16,12 @@ const PopularMenu = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-5 my-5">
-          {menu.map((item) => (
-            <MenuItem key={item._id} item={item}>
-            </MenuItem>
-          ))}
-        </div>
+        <MenuCategory items={popular}></MenuCategory>
       )}
       <div className="text-center mb-10">
-        <button className="btn btn-outline border-0 border-b-4 uppercase">View Full Menu</button>
+        <button className="btn btn-outline border-0 border-b-4 uppercase">
+          View Full Menu
+        </button>
       </div>
     </section>
   );
