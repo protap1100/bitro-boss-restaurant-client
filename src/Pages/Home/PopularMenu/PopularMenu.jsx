@@ -4,14 +4,14 @@ import MenuItem from "../../SharedPages/MenuItem/MenuItem";
 
 const PopularMenu = () => {
   const [menu, setMenu] = useState([]);
-  const [loading, setloading] = useState([true]);
+  const [loading, setLoading] = useState([true]);
   useEffect(() => {
     fetch("menu.json")
       .then((res) => res.json())
       .then((data) => {
         const popularData = data.filter((men) => men.category === "popular");
         setMenu(popularData);
-        setloading(false);
+        setLoading(false);
       });
   }, [menu]);
 
@@ -27,10 +27,14 @@ const PopularMenu = () => {
       ) : (
         <div className="grid md:grid-cols-2 gap-5 my-5">
           {menu.map((item) => (
-            <MenuItem key={item._id} item={item}> </MenuItem>
+            <MenuItem key={item._id} item={item}>
+            </MenuItem>
           ))}
         </div>
       )}
+      <div className="text-center mb-10">
+        <button className="btn btn-outline border-0 border-b-4 uppercase">View Full Menu</button>
+      </div>
     </section>
   );
 };
