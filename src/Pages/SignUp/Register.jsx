@@ -1,29 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleForm = (data) => {
     // console.log(data);
-    // console.log(data.name,data.password,data.email)
-    const email =data.email
-    const password = data.password
-    createUser(email,password)
-    .then(result=>{
-      console.log(result.user)
-    })
-    .then(error=>{
-      console.log(error)
-    })
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const photoUrl = data.photoUrl;
+    console.log(name, photoUrl, password, email);
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        updateProfile(name, photoUrl)
+          .then(() => {
+            console.log("User Updated Successfully");
+            reset();
+            navigate('/')
+          })
+          .catch((error) => console.log(error));
+      })
+      .then((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -51,6 +63,20 @@ const Register = () => {
                   type="text"
                   placeholder="name"
                   {...register("name", { required: true })}
+                  className="input input-bordered"
+                />
+                {errors.name && (
+                  <span className="text-red-500">This field is required</span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo Url</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="name"
+                  {...register("photoUrl", { required: true })}
                   className="input input-bordered"
                 />
                 {errors.name && (
