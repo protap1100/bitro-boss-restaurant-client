@@ -2,11 +2,15 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [cart, isLoading] = useCart();
+  // console.log(cart)
 
   const handleLogout = () => {
     logOut()
@@ -14,9 +18,9 @@ const NavBar = () => {
         Swal.fire({
           title: "Logout Successful",
           text: "You Have Successfully Logged Out",
-          icon: "question"
+          icon: "question",
         });
-        navigate(location?.state ? location.state : '/')
+        navigate(location?.state ? location.state : "/");
       })
       .then((error) => console.log(error));
   };
@@ -45,6 +49,22 @@ const NavBar = () => {
           </>
         )}
       </li>
+      {isLoading ? (
+        <>
+          <li>
+            <Link to="/">
+              <button className="btn">
+                <FaShoppingCart className="mr-2"></FaShoppingCart>
+                <div className="badge badge-secondary">{cart.length}</div>
+              </button>
+            </Link>
+          </li>
+        </>
+      ) : (
+        <>
+            <span className="text-accent loading text-center loading-spinner loading-lg"></span>
+        </>
+      )}
     </>
   );
 
