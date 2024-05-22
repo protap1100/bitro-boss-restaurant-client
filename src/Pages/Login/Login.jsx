@@ -8,6 +8,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disable, setDisable] = useState(true);
@@ -33,9 +34,9 @@ const Login = () => {
         Swal.fire({
           title: "Login Successful",
           text: "Login Successful",
-          icon: "question"
+          icon: "question",
         });
-        navigate(location?.state ? location.state : '/')
+        navigate(location?.state ? location.state : "/");
       })
       .then((error) => console.log(error));
   };
@@ -60,6 +61,9 @@ const Login = () => {
         <div className="hero-content flex flex-col lg:flex-row">
           <div className="text-center md:w-1/2 lg:text-left">
             <h1 className="text-5xl font-bold">Login now!</h1>
+            <Link className="btn btn-neutral" to="/">
+              Go To Home
+            </Link>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -109,9 +113,7 @@ const Login = () => {
                   className="input input-bordered"
                   required
                 />
-                <button
-                  className="btn btn-outline mt-5"
-                >
+                <button className="btn btn-outline mt-5">
                   Confirm Captcha
                 </button>
               </div>
@@ -125,8 +127,11 @@ const Login = () => {
               </div>
             </form>
             <h1>
-              New Here <Link to="/register">Register Now</Link>{" "}
+              New Here <Link to="/register">Register Now</Link>
             </h1>
+            <div className="my-10 flex items-center justify-center">
+              <SocialLogin></SocialLogin>
+            </div>
           </div>
         </div>
       </div>

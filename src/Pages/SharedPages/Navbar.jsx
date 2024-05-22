@@ -10,7 +10,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [cart, isLoading] = useCart();
-  // console.log(cart)
 
   const handleLogout = () => {
     logOut()
@@ -49,22 +48,6 @@ const NavBar = () => {
           </>
         )}
       </li>
-      {isLoading ? (
-        <>
-          <li>
-            <Link to="/">
-              <button className="btn">
-                <FaShoppingCart className="mr-2"></FaShoppingCart>
-                <div className="badge badge-secondary">{cart.length}</div>
-              </button>
-            </Link>
-          </li>
-        </>
-      ) : (
-        <>
-            <span className="text-accent loading text-center loading-spinner loading-lg"></span>
-        </>
-      )}
     </>
   );
 
@@ -102,7 +85,22 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Get started</a>
+          {isLoading ? (
+            <>
+              <li>
+                <Link to="dashboard/carts">
+                  <button className="btn">
+                    <FaShoppingCart className="mr-2"></FaShoppingCart>
+                    <div className="badge badge-secondary">{cart.length}</div>
+                  </button>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <span className="text-accent loading text-center loading-spinner loading-lg"></span>
+            </>
+          )}
         </div>
       </div>
     </>

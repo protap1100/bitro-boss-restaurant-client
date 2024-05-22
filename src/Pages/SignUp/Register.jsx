@@ -4,8 +4,12 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -27,9 +31,26 @@ const Register = () => {
         console.log(result.user);
         updateProfile(name, photoUrl)
           .then(() => {
-            console.log("User Updated Successfully");
-            reset();
-            navigate('/')
+            // console.log("User Updated Successfully");
+            // Create User in Database
+            const userInfo = {
+              name: data.name,
+              email: data.email,
+            };
+            axiosPublic.post("/users", userInfo).then((res) => {
+              console.log('user added to the database')
+              if (res.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Created Successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
           })
           .catch((error) => console.log(error));
       })
@@ -141,8 +162,9 @@ const Register = () => {
               </div>
             </form>
             <h1>
-              Already Login <Link to="/login">Login Here</Link>
+              Already Have An Account <Link to="/login">Login Here</Link>
             </h1>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>
