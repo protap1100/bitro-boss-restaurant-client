@@ -12,12 +12,15 @@ import { FaShop } from "react-icons/fa6";
 import { FcCalendar } from "react-icons/fc";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
   const [cart] = useCart();
 
   // TODO : get is Admin value from the database
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  // console.log(isAdmin)
+  // const isAdmin = true;
 
   return (
     <div className="flex">

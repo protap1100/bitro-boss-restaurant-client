@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect,  } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
-  validateCaptcha,
+  // validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const [disable, setDisable] = useState(true);
+  // const [disable, setDisable] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,15 +41,15 @@ const Login = () => {
       .then((error) => console.log(error));
   };
 
-  const handleCaptcha = (e) => {
-    const user_captcha_value = e.target.value;
-    if (validateCaptcha(user_captcha_value) == true) {
-      alert("Captcha Matched");
-      setDisable(false);
-    } else {
-      alert("Captcha Does Not Match");
-    }
-  };
+  // const handleCaptcha = (e) => {
+  //   const user_captcha_value = e.target.value;
+  //   if (validateCaptcha(user_captcha_value) == true) {
+  //     alert("Captcha Matched");
+  //     setDisable(false);
+  //   } else {
+  //     alert("Captcha Does Not Match");
+  //   }
+  // };
 
   return (
     <>
@@ -105,21 +105,21 @@ const Login = () => {
                 <label className="label">
                   <LoadCanvasTemplate />
                 </label>
-                <input
+                {/* <input
                   type="text"
                   name="captcha"
                   onBlur={handleCaptcha}
                   placeholder="Type The Captcha"
                   className="input input-bordered"
                   required
-                />
+                /> */}
                 <button className="btn btn-outline mt-5">
                   Confirm Captcha
                 </button>
               </div>
               <div className="form-control mt-6">
                 <input
-                  disabled={disable}
+                  // disabled={disable}
                   type="submit"
                   className="btn btn-primary"
                   value="login"

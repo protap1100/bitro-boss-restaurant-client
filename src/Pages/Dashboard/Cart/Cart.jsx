@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
+  // console.log(cart);
   let totalPrice = 0;
 
   for (const carts of cart) {
