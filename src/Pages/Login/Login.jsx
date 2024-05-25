@@ -36,7 +36,7 @@ const Login = () => {
           text: "Login Successful",
           icon: "question",
         });
-        navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location.state : "/menu");
       })
       .then((error) => console.log(error));
   };
