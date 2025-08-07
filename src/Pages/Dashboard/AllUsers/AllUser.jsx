@@ -42,7 +42,7 @@ const AllUser = () => {
             Swal.fire({
               title: "Deleted!",
               text: "User has been deleted successfully!",
-              icon: "success",
+              icon: "succes",
             });
           }
         });
