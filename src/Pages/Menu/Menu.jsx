@@ -57,7 +57,7 @@ const Menu = () => {
         items={soup.slice(0, 8)}
         title="soup"
         coverImg={dessertBg}
-        subTitle="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa corrupti a fuga "
+        subTitle="Lorem dolor sit amet consectetur adipisicing elit. Ipsa corrupti a fuga "
       ></MenuCategory>
     </div>
   );
